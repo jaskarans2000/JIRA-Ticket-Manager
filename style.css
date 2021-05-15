@@ -1,8 +1,8 @@
 body{
     margin:0px;
     padding:0px;
-    font-family: 'Roboto Slab', serif;
-
+    font-family: 'Rubik', sans-serif;
+    background-image: url("body_bg.jpg");
 }
 *{
     box-sizing: border-box;
@@ -23,8 +23,9 @@ background-color:lightpink;
 .toolbar{
     display: flex;
     height: 12vh;
-    background-color: rgb(32, 29, 29);
+    /* background-color: rgb(32, 29, 29); */
     align-items: center;
+    justify-content: center;
 }
 .filter_container{
     height: 70%;
@@ -38,8 +39,8 @@ background-color:lightpink;
 .filter_color-container{
     width: 25%;
     height: 100%;
-    background: #444;
-    border-right: 1px solid whitesmoke;
+    background-color: darkgray;
+    border-right: 1px solid rgb(255, 255, 255);
     /* perefectly center */
     display: flex;
     justify-content: center;
@@ -60,7 +61,7 @@ background-color:lightpink;
 .icon_container{
     height: 100%;
     width: 50%;
-    border-right: 1px solid whitesmoke;
+    border-right: 1px solid white;
     /* perfectly center */
     display: flex;
     justify-content: center;
@@ -72,37 +73,48 @@ background-color:lightpink;
  .main-container{
     min-height: 88vh;
     padding-top: 3rem;
+    position: relative;
     padding-left: 3rem;
-    background-color:aliceblue;
+    /*background-color:aliceblue;*/
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 .ticket_container{
     /* border: 1px solid red; */
-    height: 10rem;
-    width: 14rem;
+    position: absolute;
+    z-index: 9;
+    height: 14rem;
+    width: 20rem;
+    box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.637);
+    border-radius: 5px;
     background-color: white;
 }
 .ticket_color{
     height: 7%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .ticket_desc_container{
     height: 93%;
     padding: 0.5rem;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     overflow: auto;
     word-break: break-all;
 }
 
 .ticket_id{
-    margin-bottom: 11px;
+    margin-bottom: 35px;
     font-weight: 800;
-    color:lightslategray;
+    color:#e14242;
     
 }
 .ticket_desc{
     text-align: center;
     font-size: 1.2rem;
+    font-weight: 400;
+    color: #bd1892;
 }
 /* modal container */
 .modal_container{
@@ -110,16 +122,17 @@ background-color:lightpink;
     /* border: 2px solid red; */
     height: 18rem;
     /* display: flex; */
+    display: none;
     position: absolute;
     box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.637);
-    display: none;
-
+    border-radius: 5px;
 }
 .task_container{
     /* border: 1px solid green; */
     width: 76%;
     height: 100%;
-
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 .modal_color-container{
     /* border: 1px solid green; */
@@ -130,7 +143,11 @@ background-color:lightpink;
 .task_box{
     height: 100%;
     width: 100%;
+    font-size: 1.5rem;
+    font-style: italic;
     padding: 2rem;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 .modal-color{
     height: 12%;
@@ -142,6 +159,8 @@ background-color:lightpink;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .border{
     border:5px solid black;
@@ -149,11 +168,11 @@ background-color:lightpink;
 .lock{
     font-size: 36px;
     color: brown;
-    margin-left: 5rem;
+    margin-left: 3rem;
 }
 .unlock{
     font-size: 36px;
     display: none;
     color: brown;
-    margin-left: 5rem;
+    margin-left: 3rem;
 }

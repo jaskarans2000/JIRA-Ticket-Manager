@@ -24,7 +24,7 @@ if(localStorage.getItem('tickets')){
         let iColor=ticket.color;
         taskContainer.setAttribute("class", "ticket_container");
         taskContainer.innerHTML = `<div class="ticket_color ${iColor}"></div>
-        <div class="ticket_desc_container">
+        <div class="ticket_desc_container" style="background-image: url('tickets-bg.jpg'); background-size: cover;">
         <div class="ticket_id">#${id}</div>
         <div class="ticket_desc">${task}</div>
         </div>`;
@@ -75,11 +75,12 @@ taskBox.addEventListener("keydown", function (e) {
         let id = Math.random().toString(32).slice(2);
         taskContainer.setAttribute("class", "ticket_container");
         taskContainer.innerHTML = `<div class="ticket_color ${iColor}"></div>
-        <div class="ticket_desc_container">
+        <div class="ticket_desc_container" style="background-image: url('tickets-bg.jpg'); background-size: cover;">
         <div class="ticket_id">#${id}</div>
         <div class="ticket_desc">${task}</div>
         </div>`;
         mainContainer.appendChild(taskContainer);
+        taskContainer.addEventListener("dblclick",dragElement(taskContainer));
         let obj={};
         obj.id=id;
         obj.task=task;
@@ -163,7 +164,7 @@ lock.addEventListener("click",function(){
     let tickets=mainContainer.querySelectorAll(".ticket_container");
     tickets.forEach(function(ticket){
         // let ele=ticket.querySelector("")
-        ticket.contentEditable="true";
+        ticket.children[1].children[1].contentEditable="true";
         alltasks.pop();
     })
 });
@@ -176,7 +177,7 @@ unlock.addEventListener("click",function(){
     let tickets=mainContainer.querySelectorAll(".ticket_container");
     tickets.forEach(function(ticket){
         // let ele=ticket.querySelector("")
-        ticket.contentEditable="false";
+        ticket.children[1].children[1].contentEditable="false";
         let obj={};
         obj.color=ticket.querySelector('.ticket_color').classList[1];
         obj.task=ticket.querySelector('.ticket_desc').innerText;
@@ -189,16 +190,16 @@ unlock.addEventListener("click",function(){
 //hover color
 filterContainer.forEach(function(container){
     container.addEventListener("mouseover",function(e){
-        container.style.backgroundColor="black";
+        container.style.backgroundColor="#444"
     });
     container.addEventListener("mouseout",function(e){
-        container.style.backgroundColor="#444";
+        container.style.backgroundColor="darkgray"
     });
 })
 
 iconContainer.forEach(function(container){
     container.addEventListener("mouseover",function(e){
-        container.style.backgroundColor="black";
+        container.style.backgroundColor="#444";
         container.children[0].style.color="white";
     });
     container.addEventListener("mouseout",function(e){
@@ -206,3 +207,44 @@ iconContainer.forEach(function(container){
         container.children[0].style.color="black";
     });
 })
+
+//draggable element
+let tickContainer=document.querySelectorAll(".ticket_container");
+Array.from(tickContainer).forEach(function(tick){
+    tick.addEventListener("dblclick",dragElement(tick));
+})
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  elmnt.onmousedown = dragMouseDown;
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    //e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
